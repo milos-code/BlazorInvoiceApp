@@ -22,11 +22,7 @@ namespace BlazorInvoiceApp.Repository
 
         protected string? getMyUserId(ClaimsPrincipal User)
         {
-            Claim? uid = User?.FindFirst("https://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if(uid is not null)
-                return uid.Value;
-            else
-                return null;
+            return User?.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
         public virtual async Task<List<TDTO>> GetAllMine(ClaimsPrincipal User)

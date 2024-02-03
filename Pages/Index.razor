@@ -5,29 +5,18 @@
 
 <PageTitle>My Page</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Invoices</h1>
 
-Welcome to your new app.
-
-@if(customers is null)
-{
-    <p>Loading Customers...</p>
-}
-else
-{
-    foreach(CustomerDTO c in customers)
-    {
-        <p>@c.Name</p>
-    }
-}
+<PageTitle>Invoices</PageTitle>
+<AuthorizeView>
+    <Authorized>
+        <InvoicesComponent />
+    </Authorized>
+    <NotAuthorized>
+        Please log in to see your invoices.
+    </NotAuthorized>
+</AuthorizeView>
 
 @code{
-    private List<CustomerDTO> customers = null!;
 
-    protected override async Task OnInitializedAsync()
-    {
-        AuthenticationState auth = await authstate.GetAuthenticationStateAsync();
-
-        customers = await repo.Customer.GetAllMine(auth.User);
-    }
 }
